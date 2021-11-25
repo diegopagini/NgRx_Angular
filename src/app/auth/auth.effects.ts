@@ -14,6 +14,7 @@ export class AuthEffects {
           localStorage.setItem("user", JSON.stringify(action.user))
         )
       ),
+    // dispatch : false is a must if we are not planing to dispatch another action
     { dispatch: false }
   );
 
@@ -21,11 +22,12 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.logout),
-        tap((action) => {
+        tap(() => {
           localStorage.removeItem("user");
           this.router.navigateByUrl("/login");
         })
       ),
+    // dispatch : false is a must if we are not planing to dispatch another action
     { dispatch: false }
   );
 

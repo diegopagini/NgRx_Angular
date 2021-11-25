@@ -6,7 +6,7 @@ import {
 } from "@angular/router";
 import { Observable } from "rxjs";
 import { CourseEntityService } from "./course-entity.service";
-import { filter, first, map, tap } from "rxjs/operators";
+import { filter, first, tap } from "rxjs/operators";
 
 @Injectable()
 export class CoursesResolver implements Resolve<boolean> {
