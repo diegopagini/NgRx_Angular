@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { Store } from "@ngrx/store";
@@ -9,14 +9,13 @@ import { noop } from "rxjs";
 import { Router } from "@angular/router";
 import { AppState } from "../../reducers";
 import { login } from "../auth.actions";
-import { AuthActions } from "../action-types";
 
 @Component({
   selector: "login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   form: FormGroup;
 
   constructor(
@@ -25,13 +24,11 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private store: Store<AppState>
   ) {
-    this.form = fb.group({
+    this.form = this.fb.group({
       email: ["test@angular-university.io", [Validators.required]],
       password: ["test", [Validators.required]],
     });
   }
-
-  ngOnInit() {}
 
   login() {
     const val = this.form.value;
@@ -40,10 +37,7 @@ export class LoginComponent implements OnInit {
       .login(val.email, val.password)
       .pipe(
         tap((user) => {
-          console.log(user);
-
           this.store.dispatch(login({ user }));
-
           this.router.navigateByUrl("/courses");
         })
       )
