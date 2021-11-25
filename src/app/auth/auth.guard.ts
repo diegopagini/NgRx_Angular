@@ -10,7 +10,6 @@ import { AppState } from "../reducers";
 import { select, Store } from "@ngrx/store";
 import { isLoggedIn } from "./auth.selectors";
 import { tap } from "rxjs/operators";
-import { login, logout } from "./auth.actions";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -21,6 +20,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> {
     return this.store.pipe(
+      // By select we use "selectors" from NgRx selectors. They are store queries
       select(isLoggedIn),
       tap((loggedIn) => {
         if (!loggedIn) {
