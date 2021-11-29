@@ -19,9 +19,7 @@ import { login, logout } from "./auth/auth.actions";
 })
 export class AppComponent implements OnInit {
   loading = true;
-
   isLoggedIn$: Observable<boolean>;
-
   isLoggedOut$: Observable<boolean>;
 
   constructor(private router: Router, private store: Store<AppState>) {}
@@ -39,7 +37,7 @@ export class AppComponent implements OnInit {
           this.loading = true;
           break;
         }
-
+        // Set loading to true with navigation
         case event instanceof NavigationEnd:
         case event instanceof NavigationCancel:
         case event instanceof NavigationError: {
